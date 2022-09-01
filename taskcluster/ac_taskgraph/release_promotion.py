@@ -15,7 +15,11 @@ from taskgraph.parameters import Parameters
 from taskgraph.util.taskgraph import find_decision_task, find_existing_tasks_from_previous_kinds
 
 RELEASE_PROMOTION_PROJECTS = (
-    "https://github.com/mozilla-mobile/android-components", "https://github.com/mozilla-releng/staging-android-components"
+    "https://github.com/mozilla-mobile/firefox-android",
+    "https://github.com/mozilla-releng/staging-firefox-android",
+    # TODO: Remove SSH URLs once repos are public
+    "git@github.com:mozilla-mobile/firefox-android.git",
+    "git@github.com:mozilla-releng/staging-firefox-android.git",
 )
 
 

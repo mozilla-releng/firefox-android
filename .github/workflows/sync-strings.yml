@@ -8,9 +8,7 @@ permissions:
   contents: write
   pull-requests: write
 
-on:
-  schedule:
-    - cron: '0 2 * * *'
+on: workflow_dispatch
 
 jobs:
   main:

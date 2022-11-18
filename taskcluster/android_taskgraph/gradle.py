@@ -8,6 +8,7 @@ import subprocess
 
 from taskgraph.util.memoize import memoize
 
+from android_taskgraph import FOCUS_DIR
 
 
 def get_variant(build_type, build_name):
@@ -41,7 +42,12 @@ def _run_gradle_process(gradle_command, **kwargs):
         f'-P{property_name}={value}'
         for property_name, value in kwargs.items()
     ]
-    process = subprocess.Popen(["./gradlew", "--no-daemon", "--quiet", gradle_command] + gradle_properties, stdout=subprocess.PIPE, universal_newlines=True)
+    process = subprocess.Popen(
+        ["./gradlew", "--no-daemon", "--quiet", gradle_command] + gradle_properties,
+        stdout=subprocess.PIPE,
+        universal_newlines=True,
+        cwd=FOCUS_DIR,
+    )
     output, err = process.communicate()
     exit_code = process.wait()
 

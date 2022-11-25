@@ -43,7 +43,7 @@ task-defaults:
             - content: "faketoken"
               path: .adjust_token
         secrets:
-            - name: project/mobile/firefox-android/firebase
+            - name: project/mobile/focus-android/firebase
               key: firebaseToken
               path: .firebase_token.json
               json: true

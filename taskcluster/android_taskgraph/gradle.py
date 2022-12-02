@@ -10,9 +10,8 @@ import subprocess
 from collections import defaultdict
 from taskgraph.util.memoize import memoize
 
-from android_taskgraph import FOCUS_DIR
+from android_taskgraph import FOCUS_DIR, ANDROID_COMPONENTS_DIR
 from .build_config import get_components
-from .util.python import sort_dict
 
 logger = logging.getLogger(__name__)
 
@@ -25,7 +24,15 @@ CONFIGURATIONS_WITH_DEPENDENCIES = (
 
 
 @memoize
-def get_upstream_deps_for_gradle_projects(gradle_root):
+def get_upstream_deps_for_all_gradle_projects():
+    all_deps = {}
+    for gradle_root in (ANDROID_COMPONENTS_DIR, FOCUS_DIR):
+        all_deps.update(_get_upstream_deps_for_single_root(gradle_root))
+
+    return all_deps
+
+
+def _get_upstream_deps_for_single_root(gradle_root):
     """Return the full list of local upstream dependencies of a component."""
     project_dependencies = defaultdict(set)
     gradle_projects = _get_gradle_projects(gradle_root)
@@ -53,15 +60,18 @@ def get_upstream_deps_for_gradle_projects(gradle_root):
             if line.startswith("+--- project") or line.startswith(r"\--- project"):
                 project_dependencies[current_project_name].add(line.split(" ")[2])
 
-    return sort_dict({
+    return {
         project_name: sorted(project_dependencies[project_name]) for project_name in gradle_projects
-    })
+    }
 
 
 def _get_gradle_projects(gradle_root):
     if gradle_root.endswith("android-components"):
         return [c["name"] for c in get_components()]
-    # TODO: Support focus and fenix
+    elif gradle_root.endswith("focus-android"):
+        return ["app"]
+
+    # TODO: Support fenix
     raise NotImplementedError(f"Cannot find gradle projects for {gradle_root}")
 
 

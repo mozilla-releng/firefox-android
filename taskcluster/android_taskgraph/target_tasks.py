@@ -50,8 +50,8 @@ def target_tasks_nightly(full_task_graph, parameters, graph_config):
 def target_tasks_promote(full_task_graph, parameters, graph_config):
     def filter(task, parameters):
         if (
-            task.attributes.get("build-type") == parameters["release_type"]
-            and task.attributes.get("shipping_phase") == "promote"
+            task.attributes.get("shipping_phase") == "promote"
+            and _do_release_types_match(parameters, task)
         ):
             return True
 
@@ -72,13 +72,27 @@ def target_tasks_ship(full_task_graph, parameters, graph_config):
             return True
 
         if (
-            task.attributes.get("build-type") == parameters["release_type"]
-            and task.attributes.get("shipping_phase") == "ship"
+            task.attributes.get("shipping_phase") == "ship"
+            and _do_release_types_match(parameters, task)
         ):
             return True
 
     return [l for l, t in full_task_graph.tasks.items() if filter(t, parameters)]
 
+
+def _do_release_types_match(parameters, task):
+    return (
+        # TODO: only use a single attribute to compare to `release_type`
+        task.attributes.get("build-type") == parameters["release_type"]
+        or task.attributes.get("release-type") == parameters["release_type"]
+        # TODO: remove the following hack. Android-Components beta builds have
+        # historically been labeled "release" because we very introduced
+        # beta numbers in the middle of the Android monorepo migration (bug 1800611)
+        or (
+            task.attributes.get("build-type") == "release"
+            and parameters["release_type"] == "beta"
+        )
+    )
 
 @_target_task("default")
 def target_tasks_ac_default(full_task_graph, parameters, graph_config):

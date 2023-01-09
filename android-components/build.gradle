@@ -1,5 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
+// Dummy change to rebuild every component and apk
+
 import org.gradle.internal.logging.text.StyledTextOutput.Style
 import org.gradle.internal.logging.text.StyledTextOutputFactory
 import static org.gradle.api.tasks.testing.TestResult.ResultType

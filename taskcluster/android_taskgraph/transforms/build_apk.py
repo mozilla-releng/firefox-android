@@ -48,7 +48,8 @@ def add_shippable_secrets(config, tasks):
 
         if task.pop("include-shippable-secrets", False) and config.params["level"] == "3":
             gradle_build_type = task["run"]["gradle-build-type"]
-            secret_index = f'project/mobile/focus-android/{gradle_build_type}'
+            secret_project_name = "fenix" if task["name"].startswith("fenix") else "focus-android"
+            secret_index = f'project/mobile/{secret_project_name}/{gradle_build_type}'
             secrets.extend([{
                 "key": key,
                 "name": secret_index,
@@ -59,6 +60,16 @@ def add_shippable_secrets(config, tasks):
                 ('mls', '.mls_token'),
                 ('nimbus_url', '.nimbus'),
             )])
+
+            if task["name"].startswith("fenix"):
+                secrets.extend([{
+                    "key": key,
+                    "name": secret_index,
+                    "path": target_file,
+                } for key, target_file in (
+                    ("wallpaper_url", ".wallpaper_url"),
+                    ("pocket_consumer_key", ".pocket_consumer_key"),
+                )])
         else:
             dummy_secrets.extend([{
                 "content": fake_value,
@@ -90,11 +101,17 @@ def build_gradle_command(config, tasks):
         variant_config = get_variant(gradle_build_type, gradle_build_name)
         variant_name = variant_config["name"][0].upper() + variant_config["name"][1:]
 
-        task["run"]["gradlew"] = [
+        gradle_command = [
             "clean",
             f"assemble{variant_name}",
         ]
+
+        if task["run"].pop("track-apk-size", False):
+            gradle_command.append(f"apkSize{variant_name}")
+
+        task["run"]["gradlew"] = gradle_command
         yield task
+
 
 @transforms.add
 def extra_gradle_options(config, tasks):

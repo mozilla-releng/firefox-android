@@ -12,7 +12,7 @@ from taskgraph.transforms.base import TransformSequence
 from taskgraph.transforms.task import task_description_schema
 from voluptuous import Optional, Required, Schema
 
-from fenix_taskgraph.util.scriptworker import generate_beetmover_artifact_map
+from android_taskgraph.util.scriptworker import generate_beetmover_artifact_map
 
 logger = logging.getLogger(__name__)
 

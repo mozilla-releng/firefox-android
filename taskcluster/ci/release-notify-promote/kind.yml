@@ -6,6 +6,7 @@ loader: taskgraph.loader.transform:loader
 
 transforms:
     - android_taskgraph.transforms.release_deps:transforms
+    - android_taskgraph.transforms.release_notify:transforms
     - taskgraph.transforms.notify:transforms
     - taskgraph.transforms.task:transforms
 

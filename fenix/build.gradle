@@ -237,3 +237,22 @@ tasks.register("githubLintDetektDetails", GithubDetailsTask) {
 tasks.register("githubLintAndroidDetails", GithubDetailsTask) {
     text = "### [Android Lint Results Fenix]({reportsUrl}/lint-results-debug.html)"
 }
+
+// Task to copy generated baseline profile to the app module
+// to be used in the nightly release pipeline only.
+tasks.register("copyBaselineProfile", Copy) {
+    from 'benchmark/build/outputs/managed_device_android_test_additional_output/pixel3Api31'
+    into 'app/src/main'
+    include '*baseline-prof.txt'
+    rename { fileName -> "baseline-prof.txt" }
+}
+
+// Task to generate baseline profile for fenix on the defined gradle managed device.
+tasks.register('generateBaselineProfile', DefaultTask) {
+    doLast {
+        def command = "./gradlew :benchmark:pixel3Api31BenchmarkAndroidTest -P android.testInstrumentationRunnerArguments.class=org.mozilla.fenix.benchmark.baselineprofile.StartupOnlyBaselineProfileGenerator -P baselineProfileGeneration"
+        exec {
+            commandLine 'sh', '-c', command
+        }
+    }
+}

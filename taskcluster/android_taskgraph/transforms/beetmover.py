@@ -8,7 +8,6 @@ import os
 from taskgraph.transforms.base import TransformSequence
 from taskgraph.util.schema import resolve_keyed_by
 
-from ..build_config import get_version
 from .build_components import craft_path_version, get_nightly_version
 
 transforms = TransformSequence()
@@ -36,7 +35,7 @@ def resolve_keys(config, tasks):
 
 @transforms.add
 def set_artifact_map(config, tasks):
-    version = get_version()
+    version = config.params["version"]
     nightly_version = get_nightly_version(config, version)
 
     for task in tasks:
@@ -70,7 +69,7 @@ def set_artifact_map(config, tasks):
 
 @transforms.add
 def add_version(config, tasks):
-    version = get_version()
+    version = config.params["version"]
     nightly_version = get_nightly_version(config, version)
 
     for task in tasks:

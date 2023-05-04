@@ -68,7 +68,11 @@ def add_github_link(config, tasks):
     version = MobileVersion.parse(config.params["version"])
     repo = get_repository(".")
     git_tags = repo.run("tag", "-l", TAG_PREFIX + "*").splitlines()
-    previous_version = get_previous_tag_version(version, git_tags)
+    try:
+        previous_version = get_previous_tag_version(version, git_tags)
+    except Exception:
+        yield from tasks
+        return
     current_revision = config.params["head_rev"]
     repo_url = config.params["base_repository"]
     compare_url = CHANGESET_URL_TEMPLATE.format(

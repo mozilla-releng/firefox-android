@@ -8,7 +8,7 @@ transforms:
     - android_taskgraph.transforms.multi_dep:transforms
     - android_taskgraph.transforms.clean_multi_dep:transforms
     - android_taskgraph.transforms.treeherder:transforms
-    - android_taskgraph.transforms.beetmover_fenix:transforms
+    - android_taskgraph.transforms.beetmover_apk:transforms
     - taskgraph.transforms.task:transforms
 
 kind-dependencies:
@@ -22,19 +22,24 @@ only-for-build-types:
     - fenix-release
     - fenix-beta
     - fenix-nightly
+    - focus-release
+    - klar-release
+    - focus-beta
+    - focus-nightly
 
 task-template:
     attributes:
-        # TODO: Support focus
-        artifact_map: taskcluster/android_taskgraph/manifests/fenix_releases.yml
+        artifact_map: taskcluster/android_taskgraph/manifests/apk_releases.yml
         shipping_phase: ship
     treeherder:
-        job-symbol: BM
+        job-symbol:
+            by-build-type:
+                klar.*: BM-klar
+                default: BM
     bucket-scope:
         by-level:
             '3':
                 by-build-type:
-                    'fenix-nightly': "project:mobile:firefox-android:releng:beetmover:bucket:nightly"
-                    (fenix-release|fenix-beta): "project:mobile:firefox-android:releng:beetmover:bucket:release"
-                    default: "project:mobile:firefox-android:releng:beetmover:bucket:dep"
+                    .*-nightly: "project:mobile:firefox-android:releng:beetmover:bucket:nightly"
+                    .*-(release|beta): "project:mobile:firefox-android:releng:beetmover:bucket:release"
             default: "project:mobile:firefox-android:releng:beetmover:bucket:dep"

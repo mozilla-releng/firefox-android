@@ -285,7 +285,7 @@
     <string name="onboarding_home_enable_notifications_title">%s සමඟ බොහෝ දෑ කිරීමට දැනුම්දීම් උපකාරී වේ</string>
     <!-- Enable notification pre permission dialog description with rationale
         The first parameter is the name of the app defined in app_name (for example: Fenix) -->
-    <string name="onboarding_home_enable_notifications_description">උපාංග අතර පටිති සමමුහූර්තය, බාගැනීම් කළමනාකරණය, %s හි පෞද්ගලිකත්‍ව රැකවරණයෙන් උපරිම ප්‍රයෝජන ගැනීමට ඉඟි, සහ තවත් බොහෝ දෑ.</string>
+    <string name="onboarding_home_enable_notifications_description">උපාංග අතර පටිති සමමුහූර්තය, බාගැනීම් කළමනාකරණය, %s පෞද්ගලිකත්‍ව රැකවරණයෙන් උපරිම ප්‍රයෝජන ගැනීමට ඉඟි, සහ තවත් බොහෝ දෑ.</string>
     <!-- Text for the button to request notification permission on the device -->
     <string name="onboarding_home_enable_notifications_positive_button">ඉදිරියට</string>
     <!-- Text for the button to not request notification permission on the device and dismiss the dialog -->
@@ -298,6 +298,13 @@
     <!-- Title for set firefox as default browser screen used by Nimbus experiments. Nimbus experiments do not support string placeholders.
         Note: The word "Firefox" should NOT be translated -->
     <string name="juno_onboarding_default_browser_title_nimbus" tools:ignore="UnusedResources">ෆයර්ෆොක්ස් ප්‍රධාන අතිරික්සුව කරන්න</string>
+    <!-- Description for set firefox as default browser screen.
+        The first parameter is the Firefox brand name.
+        The second parameter is the string with key "juno_onboarding_default_browser_description_link_text". -->
+    <string name="juno_onboarding_default_browser_description">%1$s සැමවිට ලාභයට ඉහළින් මිනිසුන්ව තබයි. හරස්-අඩවි ලුහුබැඳීම් අවහිර කර ඔබගේ පෞද්ගලිකත්‍වය රැක දෙයි.\n\nඅපගේ %2$s හරහා තව දැනගන්න.</string>
+    <!-- Description for set firefox as default browser screen used by Nimbus experiments. Nimbus experiments do not support string placeholders.
+        Note: The word "Firefox" should NOT be translated -->
+    <string name="juno_onboarding_default_browser_description_nimbus" tools:ignore="UnusedResources">%1$s සැමවිට ලාභයට ඉහළින් මිනිසුන්ව තබයි. හරස්-අඩවි ලුහුබැඳීම් අවහිර කර ඔබගේ පෞද්ගලිකත්‍වය රැක දෙයි.\n\nඅපගේ පෞද්ගලිකත්‍ව දැන්වීම හරහා තව දැනගන්න.</string>
     <!-- Text for the link to the privacy notice webpage for set as firefox default browser screen.
     This is part of the string with the key "juno_onboarding_default_browser_description". -->
     <string name="juno_onboarding_default_browser_description_link_text">පෞද්ගලිකත්‍ව දැන්වීම</string>
@@ -321,10 +328,10 @@
     <string name="juno_onboarding_enable_notifications_title_nimbus" tools:ignore="UnusedResources">ෆයර්ෆොක්ස් සමඟ බොහෝ දෑ කිරීමට දැනුම්දීම් උපකාරී වේ</string>
     <!-- Description for enable notification permission screen.
         The first parameter is the name of the app defined in app_name (for example: Fenix) -->
-    <string name="juno_onboarding_enable_notifications_description">උපාංග අතර පටිති යැවීමට, බාගැනීම් කළමනාකරණයට මෙන්ම %s වෙතින් උපරිම ප්‍රයෝජන අත්විඳීම සඳහා ඉඟි ලබා ගන්න.</string>
+    <string name="juno_onboarding_enable_notifications_description">උපාංග අතර පටිති යැවීමට, බාගැනීම් කළමනාකරණයට මෙන්ම %s වෙතින් බොහෝ ප්‍රතිලාභ අත්විඳීම සඳහා ඉඟි ලබා ගන්න.</string>
     <!-- Description for enable notification permission screen used by Nimbus experiments. Nimbus experiments do not support string placeholders.
        Note: The word "Firefox" should NOT be translated   -->
-    <string name="juno_onboarding_enable_notifications_description_nimbus" tools:ignore="UnusedResources">උපාංග අතර පටිති යැවීමට, බාගැනීම් කළමනාකරණයට මෙන්ම ෆයර්ෆොක්ස් වෙතින් උපරිම ප්‍රයෝජන අත්විඳීම සඳහා ඉඟි ලබා ගන්න.</string>
+    <string name="juno_onboarding_enable_notifications_description_nimbus" tools:ignore="UnusedResources">උපාංග අතර පටිති යැවීමට, බාගැනීම් කළමනාකරණයට මෙන්ම ෆයර්ෆොක්ස් වෙතින් බොහෝ ප්‍රතිලාභ අත්විඳීම සඳහා ඉඟි ලබා ගන්න.</string>
     <!-- Text for the button to request notification permission on the device -->
     <string name="juno_onboarding_enable_notifications_positive_button">දැනුම්දීම් සක්‍රිය කරන්න</string>
     <!-- Text for the button dismiss the screen and move on with the flow -->
@@ -1423,7 +1430,7 @@
     <!-- text for the theme picker onboarding card header -->
     <string name="onboarding_theme_picker_header">ඔබගේ තේමාව තෝරන්න</string>
     <!-- text for the theme picker onboarding card description -->
-    <string name="onboarding_theme_picker_description_2">අඳුරු ප්‍රකාරය සමඟ විදුලිකෝෂය හා ඔබගේ නෙත් සුරකින්න.</string>
+    <string name="onboarding_theme_picker_description_2">අඳුරු ප්‍රකාරය සමඟ විදුලිකෝෂය මෙන්ම ඔබගේ නෙත් සුරකින්න.</string>
     <!-- Automatic theme setting (will follow device setting) -->
     <string name="onboarding_theme_automatic_title">ස්වයංක්‍රීය</string>
     <!-- Summary of automatic theme setting (will follow device setting) -->

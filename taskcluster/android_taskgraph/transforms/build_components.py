@@ -182,8 +182,6 @@ def add_artifacts(config, tasks):
                 extension,
                 artifact_file_name,
             ) in artifact_file_names_per_extension.items():
-                if 'name' not in artifact_template:
-                    import pdb; pdb.set_trace()
                 artifact_full_name = artifact_template["name"].format(
                     artifact_file_name=artifact_file_name,
                 )

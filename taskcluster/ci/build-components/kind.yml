@@ -21,7 +21,7 @@ task-defaults:
     artifact-template:
         type: directory
         name: public/build
-        path: '/builds/worker/checkouts/vcs/android-components/{component_path}/build/maven/org/mozilla/components/{component}'
+        path: '/builds/worker/checkouts/vcs/android-components/{component_path}/build/maven/org/mozilla/components/{component}/{version}'
     tests-artifact-template:
         type: directory
         name: public/reports/tests
@@ -85,6 +85,7 @@ task-defaults:
                             - ':{component}:assembleAndroidTest'
                             - ':{component}:test'
                             - ':{component}:lint'
+                            - ':{component}:publish'
                             - 'githubBuildDetails'
                         # No testRelease on this task, gradle task isn't defined
                         tooling-detekt:
@@ -92,12 +93,14 @@ task-defaults:
                             - ':{component}:assembleAndroidTest'
                             - ':{component}:test'
                             - ':{component}:lintRelease'
+                            - ':{component}:publish'
                             - 'githubBuildDetails'
                         default:
                             - ':{component}:assemble'
                             - ':{component}:assembleAndroidTest'
                             - ':{component}:testRelease'
                             - ':{component}:lintRelease'
+                            - ':{component}:publish'
                             - 'githubBuildDetails'
         pre-gradlew:
             - ["cd", "android-components"]

@@ -21,7 +21,7 @@ task-defaults:
     artifact-template:
         type: directory
         name: public/build
-        path: '/builds/worker/checkouts/vcs/android-components/{component_path}/build/maven/org/mozilla/components/{component}/{version}'
+        path: '/builds/worker/checkouts/vcs/android-components/{component_path}/build/maven/org/mozilla/components/{component}'
     tests-artifact-template:
         type: directory
         name: public/reports/tests

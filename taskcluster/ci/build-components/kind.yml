@@ -19,9 +19,9 @@ kind-dependencies:
 
 task-defaults:
     artifact-template:
-        type: file
-        name: public/build/{artifact_file_name}
-        path: '/builds/worker/checkouts/vcs/android-components/{component_path}/build/maven/org/mozilla/components/{component}/{version}/{artifact_file_name}'
+        type: directory
+        name: public/build
+        path: '/builds/worker/checkouts/vcs/android-components/{component_path}/build/maven/org/mozilla/components/{component}/{version}'
     tests-artifact-template:
         type: directory
         name: public/reports/tests
@@ -46,12 +46,6 @@ task-defaults:
                 nightly: false
                 default: true
     description: Execute Gradle tasks for component "{component}"
-    expose-artifacts:
-        by-build-type:
-            release: true
-            beta: true
-            nightly: true
-            default: false
     fetches:
         toolchain:
             - android-sdk-linux

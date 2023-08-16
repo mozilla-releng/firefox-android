@@ -20,7 +20,9 @@ GRADLE_COMMANDS="$@"
 
 NEXUS_PREFIX='http://localhost:8081/nexus/content/repositories'
 REPOS="-PgoogleRepo=$NEXUS_PREFIX/google/ -PcentralRepo=$NEXUS_PREFIX/central/"
-GRADLE_ARGS="--parallel $REPOS -Pcoverage"
+# override the default org.gradle.jvmargs to add more heap space
+GRADLE_ARGS=("-Dorg.gradle.jvmargs=-Xmx16g -Xms2g -XX:MaxMetaspaceSize=6g -XX:+HeapDumpOnOutOfMemoryError -XX:+UseParallelGC")
+GRADLE_ARGS+=("--parallel" $REPOS "-Pcoverage")
 
 pushd "$WORKING_DIR"
 
@@ -41,7 +43,7 @@ if [[ $WORKING_DIR == ${ANDROID_COMPONENTS_DIR}* ]]; then
   done
 fi
 
-./gradlew $GRADLE_ARGS $GRADLE_COMMANDS
+./gradlew "${GRADLE_ARGS[@]}" $GRADLE_COMMANDS
 
 . "$REPO_ROOT_DIR/taskcluster/scripts/toolchain/external-gradle-dependencies/after.sh"
 
